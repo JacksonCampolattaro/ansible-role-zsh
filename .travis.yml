@@ -11,9 +11,19 @@ addons:
     packages:
     - python-pip
 
+# Testing on multiple platforms
+env:
+  global:
+    - ROLE_NAME: zsh
+  matrix:
+    - MOLECULE_DISTRO: centos:7
+    - MOLECULE_DISTRO: fedora:28
+    - MOLECULE_DISTRO: fedora:31
+
+
 install:
   # Install ansible
-  - pip install ansible
+  - pip install ansible molecule yamllint ansible-lint docker
 
   # Check ansible version
   - ansible --version
@@ -21,9 +31,18 @@ install:
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
+before_script:
+  # The directory name has to match
+  - cd ../
+  - mv ansible-role-$ROLE_NAME JacksonCampolattaro.$ROLE_NAME
+  - cd JacksonCampolattaro.$ROLE_NAME
+
 script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+
+  # Full testing sequence
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
