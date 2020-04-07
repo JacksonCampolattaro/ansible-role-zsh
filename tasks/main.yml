@@ -5,7 +5,6 @@
   package:
       name: zsh 
       state: latest
-      become: yes
 
 - name: Set zsh as default shell
   user:
