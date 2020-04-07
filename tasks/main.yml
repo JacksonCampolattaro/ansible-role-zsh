@@ -13,6 +13,9 @@
       state: latest
   become: yes
 
+- name: Make sure zsh is installed correctly
+  shell: zsh <<<'exit'
+
 - name: Set zsh as default shell
   user:
       name: "{{ ansible_user_id }}"
