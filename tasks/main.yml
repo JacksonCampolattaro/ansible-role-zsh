@@ -40,6 +40,7 @@
 - name: Get a list of all the files in ~/.config/zsh
   find:
       paths: ~/.config/zsh
+      hidden: true
   register: zsh_dotfiles
 
 - name: Create symlinks for all the files found
