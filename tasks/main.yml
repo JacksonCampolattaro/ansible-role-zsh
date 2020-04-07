@@ -30,11 +30,17 @@
       dest: ~/.config/zsh
       update: true
 
-- name: Create symlink to the file
+- name: Get a list of all the files in ~/.config/zsh
+  find:
+      paths: ~/.config/zsh
+  register: zsh_dotfiles
+
+- name: Create symlinks for all the files found
   file:
-      src: ~/.config/zsh/*
-      dest: ~/
+      src: "{{ item.path }}"
+      dest: ~/{{ item.path | basename }}
       state: link
+  with_items: "{{ zsh_dotfiles.files }}"
 
       # - name: Place zshrc in home directory
       #   copy: 
