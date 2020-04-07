@@ -5,12 +5,13 @@
   package:
       name: zsh 
       state: latest
+  become: yes
 
 - name: Set zsh as default shell
   user:
       name: "{{ ansible_user_id }}"
       shell: /bin/zsh
-      become: yes
+  become: yes
 
 - name: Download oh-my-zsh
   get_url:
