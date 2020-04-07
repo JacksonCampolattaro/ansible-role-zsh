@@ -47,6 +47,7 @@
   file:
       src: "{{ item.path }}"
       dest: ~/{{ item.path | basename }}
+      force: true
       state: link
   with_items: "{{ zsh_dotfiles.files }}"
 
