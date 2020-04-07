@@ -1,6 +1,12 @@
 ---
 # tasks file for JacksonCampolattaro.zsh
 
+- name: Update git
+  package:
+      name: git 
+      state: latest
+  become: yes
+
 - name: Install ZSH
   package:
       name: zsh 
@@ -28,6 +34,7 @@
   git:
       repo: https://github.com/JacksonCampolattaro/dotfiles-zsh.git
       dest: ~/.config/zsh
+      depth: 1
       update: true
 
 - name: Get a list of all the files in ~/.config/zsh
@@ -41,6 +48,13 @@
       dest: ~/{{ item.path | basename }}
       state: link
   with_items: "{{ zsh_dotfiles.files }}"
+
+- name: Install powerlevel10K
+  git:
+      repo: https://github.com/romkatv/powerlevel10k.git
+      dest: $ZSH_CUSTOM/themes/powerlevel10k
+      depth: 1
+      update: true
 
       # - name: Place zshrc in home directory
       #   copy: 
