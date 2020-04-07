@@ -13,9 +13,6 @@
       state: latest
   become: yes
 
-- name: Make sure zsh is installed correctly
-  shell: zsh <<<'exit'
-
 - name: Set zsh as default shell
   user:
       name: "{{ ansible_user_id }}"
@@ -32,6 +29,9 @@
   command: 
       cmd: zsh /tmp/install-oh-my-zsh.sh
       creates: ~/.oh-my-zsh
+
+- name: Make sure zsh is installed correctly
+  shell: zsh <<<'exit'
 
 - name: Retrieve zsh configuration files using git
   git:
