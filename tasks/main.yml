@@ -21,8 +21,8 @@
 
 - name: Install oh-my-zsh 
   command: 
-  cmd: zsh /tmp/install-oh-my-zsh.sh
-  creates: ~/.oh-my-zsh
+      cmd: zsh /tmp/install-oh-my-zsh.sh
+      creates: ~/.oh-my-zsh
 
 - name: Retrieve zsh configuration files using git
   git:
